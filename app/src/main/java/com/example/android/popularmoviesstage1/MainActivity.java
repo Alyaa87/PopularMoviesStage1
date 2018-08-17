@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             pdLoading.setCancelable(false);
             pdLoading.show();
         }
-
         @Override
         protected ArrayList<MovieData> doInBackground(String... params) {
             URL moviesRequestUrl = NetworkUtils.buildUrl();

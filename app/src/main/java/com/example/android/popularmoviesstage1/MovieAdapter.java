@@ -2,13 +2,19 @@ package com.example.android.popularmoviesstage1;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.popularmoviesstage1.Data.Contract;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
 
@@ -31,12 +37,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
         MyHolder holder = new MyHolder(view);
         return holder;
     }
-    // Bind data
+    // Bind data to the holder.
     @Override
     public void onBindViewHolder(MovieAdapter.MyHolder holder, int position) {
         holder.title.setText(movieDataArrayList.get(position).getOriginal_title());
+        //view Images.
+        Picasso.with(mContext)
+                .load(Contract.IMAGE_URL + Contract.W185 + movieDataArrayList
+                        .get(position).getPoster_image())
+                 .into(holder.posterImage);
+
     }
-    // return total item from List
+    // return total item count from List
     @Override
     public int getItemCount() {
         return movieDataArrayList.size();
