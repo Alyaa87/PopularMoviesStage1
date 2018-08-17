@@ -18,45 +18,41 @@ import static com.example.android.popularmoviesstage1.Data.Contract.VOTE_AVERAGE
 public class OpenUtils {
 
     public static ArrayList<MovieData> getMovies(String moviesJsonStr)
-
             throws JSONException {
         MovieData movies;
         ArrayList<MovieData> moviesArrayList = new ArrayList<>();
-
-
         /* String array to hold each elements String */
-        JSONObject forecastJson = new JSONObject(moviesJsonStr);
+        JSONObject movieJson = new JSONObject(moviesJsonStr);
         //get all data inside JSONObject forecastJson
-        JSONArray moviesArrayResults = forecastJson.getJSONArray(RESULTS);
+        JSONArray moviesArrayResults = movieJson.getJSONArray(RESULTS);
         //get all position of array-->  parsedMoviesData that come from JSONArray-->  moviesArrayResults
         for (int i = 0; i < moviesArrayResults.length(); i++) {
             /* These are the values that will be collected */
-
             movies = new MovieData();
-            //    long voteCount;
+            //long voteCount;
             long voteAverage;
-            String title;
+            String original_title;
             String posterPath;
             String overview;
-            String releasDate;
+            String releaseDate;
 
             /* Get the JSON object representing the results */
             JSONObject objResult = moviesArrayResults.getJSONObject(i);
             /* Get the JSON object representing the--> ...vote_average... from -->JSONObject(results)*/
             voteAverage = objResult.optLong(VOTE_AVERAGE);
             /* Get the JSON object representing the -->...title... from--> JSONObject(results)*/
-            title = objResult.optString(TITLE);
+            original_title = objResult.optString(TITLE);
             /* Get the JSON object representing the -->...poster_path... from -->JSONObject(results)*/
             posterPath = objResult.optString(POSTER_PATH);
             /* Get the JSON object representing the -->....overview.... from--> JSONObject(results)*/
             overview = objResult.optString(OVERVIEW);
             /* Get the JSON object representing the -->....release_date.... from--> JSONObject(results)*/
-            releasDate = objResult.optString(RELEASE_DATE);
+            releaseDate = objResult.optString(RELEASE_DATE);
             movies.setVotAverage(voteAverage);
-            movies.setOriginal_title(title);
+            movies.setOriginal_title(original_title);
             movies.setPoster_image(posterPath);
             movies.setOverview(overview);
-            movies.setReleaseDate(releasDate);
+            movies.setReleaseDate(releaseDate);
 
             moviesArrayList.add(movies);
 

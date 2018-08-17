@@ -1,16 +1,12 @@
 package com.example.android.popularmoviesstage1.Data;
 
 public class Contract {
-
-
     private static final String KEY = "?api_key=";
-
-
     /* information. Each Movies info is an element of the "results" array */
     public static final String RESULTS = "results";
-    /*all  childrens  objects in "results" array */
+    /*all  children  objects in "results" array */
     public static final String VOTE_AVERAGE = "vote_average";
-    public static final String TITLE = "title";
+    public static final String TITLE = "original_title";
     public static final String POSTER_PATH = "poster_path";
     public static final String OVERVIEW = "overview";
     public static final String RELEASE_DATE = "release_date";

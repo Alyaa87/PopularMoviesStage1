@@ -43,7 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
         holder.title.setText(movieDataArrayList.get(position).getOriginal_title());
         //view Images.
         Picasso.with(mContext)
-                .load(Contract.IMAGE_URL + Contract.W185 + movieDataArrayList
+                .load(Contract.IMAGE_URL + Contract.W500 + movieDataArrayList
                         .get(position).getPoster_image())
                  .into(holder.posterImage);
 

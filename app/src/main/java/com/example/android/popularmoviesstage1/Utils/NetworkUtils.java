@@ -17,10 +17,8 @@ import static com.example.android.popularmoviesstage1.Data.Contract.POPULAR_PART
 
 public final class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
-
     private static final String DEFAULT_MOVIES_URL =
             BASE_URL + POPULAR_PART + Contract.API_KEY;
-    ;
     //build URL method
     public static URL buildUrl (){
         Uri builtUri= Uri.parse(DEFAULT_MOVIES_URL).buildUpon()

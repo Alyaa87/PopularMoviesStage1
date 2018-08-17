@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         moviesArrayList = new ArrayList<>();
-
         mRecyclerView = findViewById(R.id.recycler_view);
         mMovieAdapter = new MovieAdapter(this, moviesArrayList);
 
@@ -47,17 +45,18 @@ public class MainActivity extends AppCompatActivity {
         String data = NetworkUtils.getResponseFromHttpUrl();
         new AsynTaskMethod().execute(data);
     }
-
     private void showData() {
         mRecyclerView.setVisibility(View.VISIBLE);
     }
+
     private void showErrorMessage() {
         mRecyclerView.setVisibility(View.INVISIBLE);
     }
 
     //AsyncTask to fetch movie Data.
-    private class AsynTaskMethod extends AsyncTask<String, Void, ArrayList<MovieData>> {
+    public class AsynTaskMethod extends AsyncTask<String, Void, ArrayList<MovieData>> {
         ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -74,12 +73,10 @@ public class MainActivity extends AppCompatActivity {
                    by parseing   json data  into it */
                 return OpenUtils.getMovies(NetworkUtils
                         .getResponseFromHttpUrl(moviesRequestUrl));
-
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
-
         }
 
         @Override
