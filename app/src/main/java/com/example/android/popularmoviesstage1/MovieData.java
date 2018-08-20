@@ -5,13 +5,13 @@ public class MovieData {
     public String original_title;
     private long votAverage;
     private String overview;
+    private String releaseDate;
 
-    private  String releaseDate;
+    //getter and setter methods.
 
     public long getVotAverage() {
         return votAverage;
     }
-
     public void setVotAverage(long votAverage) {
         this.votAverage = votAverage;
     }
