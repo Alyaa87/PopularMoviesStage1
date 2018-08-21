@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.popularmoviesstage1.Utils.NetworkUtils;
 import com.example.android.popularmoviesstage1.Utils.OpenMoviesUtils;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //manager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
+
         mRecyclerView.setAdapter(mMovieAdapter);
 
         //add item decoration
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showErrorMessage() {
         mRecyclerView.setVisibility(View.INVISIBLE);
+        Toast.makeText(this , "Error , Check internet connection" ,Toast.LENGTH_LONG).show();
     }
 
     //AsyncTask to fetch movie Data.

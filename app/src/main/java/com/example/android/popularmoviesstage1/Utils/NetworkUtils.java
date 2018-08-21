@@ -14,16 +14,21 @@ import java.util.Scanner;
 
 import static com.example.android.popularmoviesstage1.Data.Contract.BASE_URL;
 import static com.example.android.popularmoviesstage1.Data.Contract.POPULAR_PART;
+import static com.example.android.popularmoviesstage1.Data.Contract.TOP_RATED_PART;
 
 public final class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
     private static final String DEFAULT_MOVIES_URL =
             BASE_URL + POPULAR_PART + Contract.API_KEY;
+
+    private static final String DEFAULT_TOP_MOVIES_URL =
+            BASE_URL + TOP_RATED_PART + Contract.API_KEY;
     //build URL method
     public static URL buildUrl (){
         Uri builtUri= Uri.parse(DEFAULT_MOVIES_URL).buildUpon()
                 .build();
         URL url = null;
+
         try {
             url = new URL(builtUri.toString());
         } catch (MalformedURLException e) {

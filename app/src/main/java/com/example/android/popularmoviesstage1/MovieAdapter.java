@@ -2,6 +2,8 @@ package com.example.android.popularmoviesstage1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.example.android.popularmoviesstage1.Data.Contract;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,16 +54,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
     public void onBindViewHolder(MovieAdapter.MyHolder holder, final int position) {
         final MovieData movies = movieDataArrayList.get( position);
 
-//        final MovieData getMoviesArr = movieDataArrayList.get(position);
-
-
         holder.original_title.setText(movies.getOriginal_title());
       
         //view Images.
         Picasso.with(mContext)
-                .load(Contract.IMAGE_URL + Contract.W185 + movieDataArrayList
+                .load(Contract.IMAGE_URL + Contract.W500 + movieDataArrayList
                         .get(position).getPoster_image())
                  .into(holder.posterImage);
+
 
             //set onclick listener for the movie items.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -68,9 +69,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
             public void onClick(View view) {
              Intent intent = new Intent(mContext, DetailMoviesActivity.class);
                 //put Extra (send intent).
-                Bundle extras = intent.getExtras();
-                intent.putExtras(extras);
-
+                intent.putExtra(Intent.EXTRA_TEXT , TITLE);
+                intent.putExtra(Intent.EXTRA_TEXT , OVERVIEW);
 
              mContext.startActivity(intent);
             }

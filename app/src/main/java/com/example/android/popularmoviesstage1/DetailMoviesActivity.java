@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import static com.example.android.popularmoviesstage1.Data.Contract.EXTRA_TITLE;
 import static com.example.android.popularmoviesstage1.Data.Contract.OVERVIEW;
+import static com.example.android.popularmoviesstage1.Data.Contract.POSTER_PATH;
 import static com.example.android.popularmoviesstage1.Data.Contract.RELEASE_DATE;
+import static com.example.android.popularmoviesstage1.Data.Contract.TITLE;
 import static com.example.android.popularmoviesstage1.Data.Contract.VOTE_AVERAGE;
 
 public class DetailMoviesActivity extends AppCompatActivity {
@@ -29,14 +31,16 @@ public class DetailMoviesActivity extends AppCompatActivity {
         mMoviePoster = findViewById(R.id.movie_poster);
 
         Intent intentStartDetailActivity = getIntent();
-//get the intent
-//        if (intentStartDetailActivity.hasExtra(Intent.EXTRA_TEXT)){
-//          intentStartDetailActivity.getStringExtra(Intent.EXTRA_TEXT);
-//          mTitle.setText(EXTRA_TITLE);}
+
+           //get the intent
 
         if (intentStartDetailActivity.hasExtra(Intent.EXTRA_TEXT)){
-            intentStartDetailActivity.getStringExtra(Intent.EXTRA_TEXT);
-            mReleaseDate.setText(RELEASE_DATE);}
+            getIntent().getParcelableExtra(Intent.EXTRA_TEXT);
+            mTitle.setText(TITLE);}
+
+        if (intentStartDetailActivity.hasExtra(Intent.EXTRA_TEXT)){
+            getIntent().getParcelableExtra(Intent.EXTRA_TEXT);
+            mPlotSynposis.setText(OVERVIEW);}
 
     }
 }
