@@ -72,7 +72,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
                 intent.putExtra(Intent.EXTRA_TEXT , TITLE);
                 intent.putExtra(Intent.EXTRA_TEXT , OVERVIEW);
 
-             mContext.startActivity(intent);
+                mContext.startActivity(intent);
             }
         });
    }

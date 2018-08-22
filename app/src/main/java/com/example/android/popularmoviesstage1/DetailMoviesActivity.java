@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Property;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,13 +34,19 @@ public class DetailMoviesActivity extends AppCompatActivity {
         Intent intentStartDetailActivity = getIntent();
 
            //get the intent
+        Intent intent = getIntent();
+        MovieData movieData = intent.getParcelableExtra("MovieData");
+        movieData = getIntent().getParcelableExtra(Intent.EXTRA_TEXT);
+        mTitle.setText(TITLE);
+
+          //now collect all movie values
 
         if (intentStartDetailActivity.hasExtra(Intent.EXTRA_TEXT)){
-            getIntent().getParcelableExtra(Intent.EXTRA_TEXT);
+            movieData =getIntent().getParcelableExtra(Intent.EXTRA_TEXT);
             mTitle.setText(TITLE);}
 
         if (intentStartDetailActivity.hasExtra(Intent.EXTRA_TEXT)){
-            getIntent().getParcelableExtra(Intent.EXTRA_TEXT);
+           movieData= getIntent().getParcelableExtra(Intent.EXTRA_TEXT);
             mPlotSynposis.setText(OVERVIEW);}
 
     }
