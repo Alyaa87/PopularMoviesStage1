@@ -22,7 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
+import static com.example.android.popularmoviesstage1.Data.Contract.EXTRA_OVERVIEW;
+import static com.example.android.popularmoviesstage1.Data.Contract.EXTRA_RATE;
 import static com.example.android.popularmoviesstage1.Data.Contract.EXTRA_TITLE;
+import static com.example.android.popularmoviesstage1.Data.Contract.EXTRA_URL;
+import static com.example.android.popularmoviesstage1.Data.Contract.EXTRA_YEAR;
 import static com.example.android.popularmoviesstage1.Data.Contract.OVERVIEW;
 import static com.example.android.popularmoviesstage1.Data.Contract.RELEASE_DATE;
 import static com.example.android.popularmoviesstage1.Data.Contract.TITLE;
@@ -53,7 +57,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(MovieAdapter.MyHolder holder, final int position) {
         final MovieData movies = movieDataArrayList.get( position);
-
+     //view the movie title
         holder.original_title.setText(movies.getOriginal_title());
       
         //view Images.
@@ -69,9 +73,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
             public void onClick(View view) {
              Intent intent = new Intent(mContext, DetailMoviesActivity.class);
                 //put Extra (send intent).
-                intent.putExtra(Intent.EXTRA_TEXT , TITLE);
-                intent.putExtra(Intent.EXTRA_TEXT , OVERVIEW);
+                Bundle bundle = new Bundle();
 
+                bundle.putString(EXTRA_TITLE , movies.getOriginal_title());
+                bundle.putString(EXTRA_RATE , String.valueOf(movies.getVoteAverage()));
+                bundle.putString(EXTRA_YEAR , movies.getReleaseDate());
+                bundle.putString(EXTRA_URL , movies.getPoster_image());
+                bundle.putString(EXTRA_OVERVIEW , movies.getOverview());
+
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }
         });
@@ -81,6 +91,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
     public int getItemCount() {
         return movieDataArrayList.size();
     }
+
+    public void updateMovies(ArrayList<MovieData> movie_list) {
+        this.movieDataArrayList = movie_list;
+    }
+
     class MyHolder extends RecyclerView.ViewHolder{
        public TextView original_title;
         public ImageView posterImage;

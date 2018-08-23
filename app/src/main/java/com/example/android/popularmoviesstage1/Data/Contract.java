@@ -17,12 +17,12 @@ public class Contract {
     public static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
     public static final String POPULAR_PART = "popular";
     public static final String TOP_RATED_PART = "top_rated ";
-    //keyes of intent
+    //keys of the intent bundle
     public static final String EXTRA_TITLE = "extra_title ";
     public static final String EXTRA_URL = "extra_url ";
     public static final String EXTRA_YEAR = "extra_year ";
     public static final String EXTRA_RATE = "extra_rate ";
-    public static final String EXTRA_OVERVIEW = "extra_overview ";
+    public static final String EXTRA_OVERVIEW = "extra_overview";
     //the url of value of image view
     public static final String IMAGE_URL = "http://image.tmdb.org/t/p/";
     public static final String W185 = "w185";

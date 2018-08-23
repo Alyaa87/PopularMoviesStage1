@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+import static com.example.android.popularmoviesstage1.Data.Contract.API_KEY;
 import static com.example.android.popularmoviesstage1.Data.Contract.BASE_URL;
 import static com.example.android.popularmoviesstage1.Data.Contract.POPULAR_PART;
 import static com.example.android.popularmoviesstage1.Data.Contract.TOP_RATED_PART;
@@ -24,9 +25,11 @@ public final class NetworkUtils {
     private static final String DEFAULT_TOP_MOVIES_URL =
             BASE_URL + TOP_RATED_PART + Contract.API_KEY;
     //build URL method
-    public static URL buildUrl (){
-        Uri builtUri= Uri.parse(DEFAULT_MOVIES_URL).buildUpon()
-                .build();
+    public static URL buildUrl() {
+            Uri builtUri;
+            builtUri = Uri.parse(DEFAULT_MOVIES_URL).buildUpon()
+                    .build();
+        //  Return the URL used to query API
         URL url = null;
 
         try {
@@ -36,7 +39,7 @@ public final class NetworkUtils {
         }
 
         Log.v(TAG, "Built URI " + builtUri);
-//return statement
+          //return statement
         return url;
     }
 

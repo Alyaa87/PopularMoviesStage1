@@ -4,18 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class MovieData implements Parcelable {
-    public String poster_image;
+    public String poster_path;
     public String original_title;
-    private long votAverage;
+    private long voteAverage;
     private String overview;
     private String releaseDate;
 
+    // write the values we want to save to the `Parcel`.
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(voteAverage);
+        parcel.writeString(releaseDate);
+        parcel.writeString(overview);
+        parcel.writeString(poster_path);
+        parcel.writeString(original_title);
+    }
+
+
     public MovieData(Parcel in) {
-        poster_image = in.readString();
-        original_title = in.readString();
-        votAverage = in.readLong();
-        overview = in.readString();
+        voteAverage = in.readLong();
         releaseDate = in.readString();
+        overview = in.readString();
+        poster_path = in.readString();
+        original_title = in.readString();
     }
 
     public static final Creator<MovieData> CREATOR = new Creator<MovieData>() {
@@ -34,41 +45,33 @@ public class MovieData implements Parcelable {
     }
 
     //getter and setter methods.
-    public long getVotAverage() {
-        return votAverage;
+    public long getVoteAverage() {
+        return voteAverage;
     }
-    public void setVotAverage(long votAverage) {
-        this.votAverage = votAverage;
+    public void setVoteAverage(long votAverage) {
+        this.voteAverage = votAverage;
     }
-
     public String getReleaseDate() {
         return releaseDate;
     }
-
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-
     public String getOverview() {
         return overview;
     }
-
     public void setOverview(String overview) {
         this.overview = overview;
     }
-
     public String getPoster_image() {
-        return poster_image;
+        return poster_path;
     }
-
     public void setPoster_image(String poster_image) {
-        this.poster_image = poster_image;
+        this.poster_path = poster_image;
     }
-
     public String getOriginal_title() {
         return original_title;
     }
-
     public void setOriginal_title(String original_title) {
         this.original_title = original_title;
     }
@@ -77,14 +80,5 @@ public class MovieData implements Parcelable {
     public int describeContents() {
         return 0;
     }
-    // write the values we want to save to the `Parcel`.
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(releaseDate);
-        parcel.writeString(original_title);
-        parcel.writeString(overview);
-        parcel.writeLong(votAverage);
-        parcel.writeString(poster_image);
 
-    }
 }

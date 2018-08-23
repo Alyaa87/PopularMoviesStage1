@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,12 +17,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.popularmoviesstage1.Utils.NetworkUtils;
 import com.example.android.popularmoviesstage1.Utils.OpenMoviesUtils;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -28,13 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
     private ArrayList<MovieData> moviesArrayList;
+    Button check;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         moviesArrayList = new ArrayList<>();
         mRecyclerView = findViewById(R.id.recycler_view);
+        check = (Button)findViewById(R.id.check_btn);
         mMovieAdapter = new MovieAdapter(this, moviesArrayList);
 
        //linearLayoutManager
@@ -44,14 +55,34 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(manager);
 
         mRecyclerView.setAdapter(mMovieAdapter);
+        //check Button for internet state.
+        check.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMovieAdapter.updateMovies(null);
+
+                ConnectivityManager cm =
+                        (ConnectivityManager)MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnected();
+                boolean isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+                if(isConnected||isWiFi){
+                    loadMovieData();
+
+                }else {
+                    showErrorMessage();
+                }
+            }
+        });
 
         //add item decoration
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-        loadMovieData();
-
+       loadMovieData();
     }
 
     private void loadMovieData() {
@@ -61,10 +92,13 @@ public class MainActivity extends AppCompatActivity {
     }
     private void showData() {
         mRecyclerView.setVisibility(View.VISIBLE);
+        check.setVisibility(View.INVISIBLE);
     }
 
     private void showErrorMessage() {
         mRecyclerView.setVisibility(View.INVISIBLE);
+        check.setVisibility(View.VISIBLE);
+     //error toast
         Toast.makeText(this , "Error , Check internet connection" ,Toast.LENGTH_LONG).show();
     }
 
@@ -83,9 +117,6 @@ public class MainActivity extends AppCompatActivity {
         protected ArrayList<MovieData> doInBackground(String... params) {
             URL moviesRequestUrl = NetworkUtils.buildUrl();
             try {
-                /*get the value json data com from url
-                  return value from  OpenMoviesUtils class
-                   by parsing json data  into it */
                 return OpenMoviesUtils.getMovies(NetworkUtils
                         .getResponseFromHttpUrl(moviesRequestUrl));
             } catch (Exception e) {
@@ -102,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
             pdLoading.dismiss();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

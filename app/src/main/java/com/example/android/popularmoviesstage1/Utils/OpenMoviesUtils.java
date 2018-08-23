@@ -26,20 +26,19 @@ public class OpenMoviesUtils {
 
 
         /* String array to hold each elements String */
-        JSONObject forecastJson = new JSONObject(moviesJsonStr);
+        JSONObject myJson = new JSONObject(moviesJsonStr);
         //get all data inside JSONObject forecastJson
-        JSONArray moviesArrayResults = forecastJson.getJSONArray(RESULTS);
+        JSONArray moviesArrayResults = myJson.getJSONArray(RESULTS);
         //get all position of array-->  parsedMoviesData that come from JSONArray-->  moviesArrayResults
         for (int i = 0; i < moviesArrayResults.length(); i++) {
             /* These are the values that will be collected */
 
             movies = new MovieData();
-            //    long voteCount;
             long voteAverage;
             String title;
             String posterPath;
             String overview;
-            String releasDate;
+            String releaseDate;
 
             /* Get the JSON object representing the results */
             JSONObject objResult = moviesArrayResults.getJSONObject(i);
@@ -54,12 +53,12 @@ public class OpenMoviesUtils {
            /*Get the JSON object representing the -->....overview.... from--> JSONObject(results)*/
             overview = objResult.optString(OVERVIEW);
            /*Get the JSON object representing the -->....release_date.... from--> JSONObject(results)*/
-            releasDate = objResult.optString(RELEASE_DATE);
-            movies.setVotAverage(voteAverage);
+            releaseDate = objResult.optString(RELEASE_DATE);
+            movies.setVoteAverage(voteAverage);
             movies.setOriginal_title(title);
             movies.setPoster_image(posterPath);
             movies.setOverview(overview);
-            movies.setReleaseDate(releasDate);
+            movies.setReleaseDate(releaseDate);
 
             moviesArrayList.add(movies);
         }
