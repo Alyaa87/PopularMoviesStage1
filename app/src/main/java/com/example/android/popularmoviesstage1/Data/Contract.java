@@ -27,6 +27,7 @@ public class Contract {
     public static final String IMAGE_URL = "http://image.tmdb.org/t/p/";
     public static final String W185 = "w185";
     public static final String W500 = "w500";
+    public static final String W780 = "w780";
 
 
 }

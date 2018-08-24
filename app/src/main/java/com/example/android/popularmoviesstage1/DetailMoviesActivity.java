@@ -50,28 +50,31 @@ public class DetailMoviesActivity extends AppCompatActivity {
 
         if (bundle.getString(EXTRA_TITLE) != null) {
             mTitle = bundle.getString(EXTRA_TITLE);
-            mTitleTxt.setText(mTitle);}
-
-            if (bundle.getString(EXTRA_OVERVIEW) != null) {
-                mOverview.setText(EXTRA_OVERVIEW);
-            }
-
-            if (bundle.getString(EXTRA_URL) != null) {
-                mUrl=  bundle.getString(EXTRA_URL);
+            mTitleTxt.setText(mTitle);
         }
 
-            if (bundle.getString(EXTRA_YEAR) != null) {
-                mReleaseDate.setText(bundle.getString(EXTRA_YEAR));}
+        if (bundle.getString(EXTRA_URL) != null) {
+                mUrl = bundle.getString(EXTRA_URL);
+        }
 
-            if (bundle.getString(EXTRA_RATE) != null) {
-                    int number = Integer.parseInt(bundle.getString(EXTRA_RATE));
-                    float d = (float) ((number * 5) / 10);
-                    ratingBar.setRating(d); }
+        if (bundle.getString(EXTRA_YEAR) != null) {
+            mReleaseDate.setText(bundle.getString(EXTRA_YEAR));
+        }
+
+        if (bundle.getString(EXTRA_RATE) != null) {
+            int number = Integer.parseInt(bundle.getString(EXTRA_RATE));
+            float d = (float) ((number * 5) / 10);
+            ratingBar.setRating(d);
+        }
+
+        if (bundle.getString(EXTRA_OVERVIEW) != null) {
+            mOverview.setText(bundle.getString(EXTRA_OVERVIEW));
+        }
 
         Picasso.with(this)
-                .load(Contract.IMAGE_URL + Contract.W500 + mUrl)
+                .load(Contract.IMAGE_URL + Contract.W780 + mUrl)
                 .into(mMoviePoster);
-        }
+    }
 
 
 }

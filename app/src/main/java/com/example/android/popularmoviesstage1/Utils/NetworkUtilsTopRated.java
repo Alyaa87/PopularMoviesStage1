@@ -12,36 +12,34 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
-import static com.example.android.popularmoviesstage1.Data.Contract.API_KEY;
 import static com.example.android.popularmoviesstage1.Data.Contract.BASE_URL;
-import static com.example.android.popularmoviesstage1.Data.Contract.POPULAR_PART;
 import static com.example.android.popularmoviesstage1.Data.Contract.TOP_RATED_PART;
 
-public final class NetworkUtils {
-    private static final String TAG = NetworkUtils.class.getSimpleName();
-    private static final String DEFAULT_MOVIES_URL =
-            BASE_URL + POPULAR_PART + Contract.API_KEY;
+public class NetworkUtilsTopRated {
+    private static final String TAG = NetworkUtilsTopRated.class.getSimpleName();
 
+    private static final String TOP_MOVIES_URL =
+            BASE_URL + TOP_RATED_PART + Contract.API_KEY;
     //build URL method
-    public static URL buildUrl() {
-            Uri builtUri;
-            builtUri = Uri.parse(DEFAULT_MOVIES_URL).buildUpon()
-                    .build();
+    public static URL buildUrl2() {
+        Uri builtUri2;
+        builtUri2 = Uri.parse(TOP_MOVIES_URL).buildUpon()
+                .build();
         //  Return the URL used to query API
         URL url = null;
 
         try {
-            url = new URL(builtUri.toString());
+            url = new URL(builtUri2.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
-        Log.v(TAG, "Built URI " + builtUri);
-          //return statement
+        Log.v(TAG, "Built URI " + builtUri2);
+        //return statement
         return url;
     }
 
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
+    public static String getResponseFromHttpUrl2(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
@@ -60,7 +58,8 @@ public final class NetworkUtils {
         }
     }
 
-    public static String getResponseFromHttpUrl() {
+    public static String getResponseFromHttpUrl2() {
         return null;
     }
 }
+

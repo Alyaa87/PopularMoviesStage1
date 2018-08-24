@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.popularmoviesstage1.Utils.NetworkUtils;
+import com.example.android.popularmoviesstage1.Utils.NetworkUtilsTopRated;
 import com.example.android.popularmoviesstage1.Utils.OpenMoviesUtils;
 
 import java.io.IOException;
@@ -35,12 +36,19 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
     private ArrayList<MovieData> moviesArrayList;
-    Button check;
+    private Button check;
+    private Menu menu;
+    private static final String STATE_MOVIES = "state_movies";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(STATE_MOVIES)) {
+            //after check get the value of that key in  moviesArrayList
+            moviesArrayList = savedInstanceState.getParcelableArrayList(STATE_MOVIES);
+        }
         setContentView(R.layout.activity_main);
 
         moviesArrayList = new ArrayList<>();
@@ -65,15 +73,15 @@ public class MainActivity extends AppCompatActivity {
                         (ConnectivityManager)MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
                 boolean isConnected = activeNetwork != null &&
                         activeNetwork.isConnected();
-                boolean isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-                if(isConnected||isWiFi){
+                if(isConnected){
                     loadMovieData();
 
-                }else {
-                    showErrorMessage();
-                }
+                }else{
+                    Toast.makeText(MainActivity.this , "Error , Check internet connection" ,Toast.LENGTH_LONG).show();}
+
             }
         });
 
@@ -90,6 +98,13 @@ public class MainActivity extends AppCompatActivity {
         String data = NetworkUtils.getResponseFromHttpUrl();
         new AsynTaskMethod().execute(data);
     }
+
+    private void loadTopMovieData(){
+    showData();
+    String data2 = NetworkUtilsTopRated.getResponseFromHttpUrl2();
+    new AsynTaskMethod2().execute(data2);
+    }
+
     private void showData() {
         mRecyclerView.setVisibility(View.VISIBLE);
         check.setVisibility(View.INVISIBLE);
@@ -133,6 +148,45 @@ public class MainActivity extends AppCompatActivity {
             pdLoading.dismiss();
         }
     }
+
+    //AsyncTask to fetch movie Data.
+    public class AsynTaskMethod2 extends AsyncTask<String, Void, ArrayList<MovieData>> {
+        ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("\tLoading...");
+            pdLoading.setCancelable(false);
+            pdLoading.show();
+        }
+        @Override
+        protected ArrayList<MovieData> doInBackground(String... params) {
+            URL moviesRequestUrl = NetworkUtilsTopRated.buildUrl2();
+            try {
+                return OpenMoviesUtils.getMovies(NetworkUtilsTopRated
+                        .getResponseFromHttpUrl2(moviesRequestUrl));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<MovieData> resultArrayList) {
+            moviesArrayList = resultArrayList;
+            mMovieAdapter.addMovieArrayList(moviesArrayList);
+            mMovieAdapter.notifyDataSetChanged();
+            pdLoading.dismiss();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList(STATE_MOVIES, moviesArrayList);
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -148,16 +202,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.popular) {
-            //change the Url to popular
+            //set the Url to popular
             loadMovieData();
             return true;
         }
         if (id == R.id.top_rated){
-            //change the Url to top rated
-            loadMovieData();
+            //set the Url to top rated
+            loadTopMovieData();
             return  true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
