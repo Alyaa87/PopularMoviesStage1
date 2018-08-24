@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private MovieAdapter mMovieAdapter;
     private ArrayList<MovieData> moviesArrayList;
     private Button check;
-    private Menu menu;
     private static final String STATE_MOVIES = "state_movies";
 
 
