@@ -89,10 +89,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyHolder> {
     // return total item count from List
     @Override
     public int getItemCount() {
-        return movieDataArrayList.size();
-    }
+        if (movieDataArrayList != null) {
+            return movieDataArrayList.size();
+        }else { return 0; }
+        }
 
-    public void updateMovies(ArrayList<MovieData> movie_list) {
+    public void
+    updateMovies(ArrayList<MovieData> movie_list) {
         this.movieDataArrayList = movie_list;
     }
 

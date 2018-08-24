@@ -16,7 +16,7 @@ public class Contract {
     public static final String API_KEY = KEY+ "0baa0dbb0893e2930c6885d76a3d4d66";
     public static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
     public static final String POPULAR_PART = "popular";
-    public static final String TOP_RATED_PART = "top_rated ";
+    public static final String TOP_RATED_PART = "top_rated";
     //keys of the intent bundle
     public static final String EXTRA_TITLE = "extra_title ";
     public static final String EXTRA_URL = "extra_url ";

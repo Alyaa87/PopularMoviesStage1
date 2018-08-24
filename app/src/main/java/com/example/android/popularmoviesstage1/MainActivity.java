@@ -68,18 +68,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mMovieAdapter.updateMovies(null);
-
-                ConnectivityManager cm =
-                        (ConnectivityManager)MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-
-                boolean isConnected = activeNetwork != null &&
-                        activeNetwork.isConnected();
-                if(isConnected){
+                if(isOnline()){
                     loadMovieData();
-
                 }else{
+                    showErrorMessage();
                     Toast.makeText(MainActivity.this , "Error , Check internet connection" ,Toast.LENGTH_LONG).show();}
 
             }
@@ -92,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
 
        loadMovieData();
     }
+    //check internet state.
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
     private void loadMovieData() {
         showData();
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadTopMovieData(){
     showData();
-    String data2 = NetworkUtilsTopRated.getResponseFromHttpUrl2();
+    String data2 = NetworkUtilsTopRated.getResponseFromHttpUrlT();
     new AsynTaskMethod2().execute(data2);
     }
 
@@ -162,10 +161,10 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected ArrayList<MovieData> doInBackground(String... params) {
-            URL moviesRequestUrl = NetworkUtilsTopRated.buildUrl2();
+            URL moviesRequestUrl = NetworkUtilsTopRated.buildUrlTop();
             try {
                 return OpenMoviesUtils.getMovies(NetworkUtilsTopRated
-                        .getResponseFromHttpUrl2(moviesRequestUrl));
+                        .getResponseFromHttpUrlTop(moviesRequestUrl));
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -173,8 +172,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<MovieData> resultArrayList) {
-            moviesArrayList = resultArrayList;
+        protected void onPostExecute(ArrayList<MovieData> resultArrayList2) {
+            moviesArrayList = resultArrayList2;
             mMovieAdapter.addMovieArrayList(moviesArrayList);
             mMovieAdapter.notifyDataSetChanged();
             pdLoading.dismiss();

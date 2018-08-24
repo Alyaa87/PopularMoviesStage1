@@ -19,27 +19,27 @@ public class NetworkUtilsTopRated {
     private static final String TAG = NetworkUtilsTopRated.class.getSimpleName();
 
     private static final String TOP_MOVIES_URL =
-            BASE_URL + TOP_RATED_PART + Contract.API_KEY;
+            BASE_URL+TOP_RATED_PART+Contract.API_KEY;
     //build URL method
-    public static URL buildUrl2() {
-        Uri builtUri2;
-        builtUri2 = Uri.parse(TOP_MOVIES_URL).buildUpon()
+    public static URL buildUrlTop() {
+        Uri builtUri;
+        builtUri = Uri.parse(TOP_MOVIES_URL).buildUpon()
                 .build();
         //  Return the URL used to query API
         URL url = null;
 
         try {
-            url = new URL(builtUri2.toString());
+            url = new URL(builtUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
-        Log.v(TAG, "Built URI " + builtUri2);
+        Log.v(TAG, "Built URI " + builtUri);
         //return statement
         return url;
     }
 
-    public static String getResponseFromHttpUrl2(URL url) throws IOException {
+    public static String getResponseFromHttpUrlTop(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
             InputStream in = urlConnection.getInputStream();
@@ -58,8 +58,7 @@ public class NetworkUtilsTopRated {
         }
     }
 
-    public static String getResponseFromHttpUrl2() {
+    public static String getResponseFromHttpUrlT() {
         return null;
     }
 }
-
