@@ -1,19 +1,22 @@
 package com.example.android.popularmoviesstage1.Data;
+
+import com.example.android.popularmoviesstage1.BuildConfig;
+
 public class Contract {
 
     private static final String KEY = "?api_key=";
     /* information. Each Movies info is an element of the "results" array */
     public static final String RESULTS = "results";
-    /*all  childrens  objects in "results" array */
+    /*all  children objects in "results" array */
     public static final String VOTE_AVERAGE = "vote_average";
     public static final String POSTER_PATH = "poster_path";
     public static final String OVERVIEW = "overview";
     public static final String RELEASE_DATE = "release_date";
     public static final String TITLE = "title";
 
+    //TODO put your own Api key here
+    public static final String API_KEY = KEY+ BuildConfig.API_KEY;
 
-    //TODO put your own Api key
-    public static final String API_KEY = KEY+ "0baa0dbb0893e2930c6885d76a3d4d66";
     public static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
     public static final String POPULAR_PART = "popular";
     public static final String TOP_RATED_PART = "top_rated";
@@ -28,6 +31,5 @@ public class Contract {
     public static final String W185 = "w185";
     public static final String W500 = "w500";
     public static final String W780 = "w780";
-
 
 }

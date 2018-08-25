@@ -19,7 +19,8 @@ public class NetworkUtilsTopRated {
     private static final String TAG = NetworkUtilsTopRated.class.getSimpleName();
 
     private static final String TOP_MOVIES_URL =
-            BASE_URL+TOP_RATED_PART+Contract.API_KEY;
+            BASE_URL + TOP_RATED_PART + Contract.API_KEY;
+
     //build URL method
     public static URL buildUrlTop() {
         Uri builtUri;

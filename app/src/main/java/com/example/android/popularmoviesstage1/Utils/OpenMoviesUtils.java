@@ -42,17 +42,17 @@ public class OpenMoviesUtils {
 
             /* Get the JSON object representing the results */
             JSONObject objResult = moviesArrayResults.getJSONObject(i);
-           /*Get the JSON object representing the--> ...vote_average... from -->JSONObject(results)*/
+            /*Get the JSON object representing the--> ...vote_average... from -->JSONObject(results)*/
             voteAverage = objResult.optLong(VOTE_AVERAGE);
             //*Get the JSON object representing the -->...title... from--> JSONObject(results)*/
             title = objResult.optString("title");
-            Log.d ("moviesTitle" , title);
+            Log.d("moviesTitle", title);
 
-           /*Get the JSON object representing the -->...poster_path... from -->JSONObject(results)*/
+            /*Get the JSON object representing the -->...poster_path... from -->JSONObject(results)*/
             posterPath = objResult.optString(POSTER_PATH);
-           /*Get the JSON object representing the -->....overview.... from--> JSONObject(results)*/
+            /*Get the JSON object representing the -->....overview.... from--> JSONObject(results)*/
             overview = objResult.optString(OVERVIEW);
-           /*Get the JSON object representing the -->....release_date.... from--> JSONObject(results)*/
+            /*Get the JSON object representing the -->....release_date.... from--> JSONObject(results)*/
             releaseDate = objResult.optString(RELEASE_DATE);
             movies.setVoteAverage(voteAverage);
             movies.setOriginal_title(title);

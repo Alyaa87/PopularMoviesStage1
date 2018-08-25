@@ -24,9 +24,9 @@ public final class NetworkUtils {
 
     //build URL method
     public static URL buildUrl() {
-            Uri builtUri;
-            builtUri = Uri.parse(DEFAULT_MOVIES_URL).buildUpon()
-                    .build();
+        Uri builtUri;
+        builtUri = Uri.parse(DEFAULT_MOVIES_URL).buildUpon()
+                .build();
         //  Return the URL used to query API
         URL url = null;
 
@@ -37,7 +37,7 @@ public final class NetworkUtils {
         }
 
         Log.v(TAG, "Built URI " + builtUri);
-          //return statement
+        //return statement
         return url;
     }
 

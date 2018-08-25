@@ -11,24 +11,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.example.android.popularmoviesstage1.Utils.NetworkUtils;
 import com.example.android.popularmoviesstage1.Utils.NetworkUtilsTopRated;
 import com.example.android.popularmoviesstage1.Utils.OpenMoviesUtils;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -39,50 +34,43 @@ public class MainActivity extends AppCompatActivity {
     private Button check;
     private static final String STATE_MOVIES = "state_movies";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (savedInstanceState != null && savedInstanceState.containsKey(STATE_MOVIES)) {
             //after check get the value of that key in  moviesArrayList
             moviesArrayList = savedInstanceState.getParcelableArrayList(STATE_MOVIES);
         }
         setContentView(R.layout.activity_main);
-
         moviesArrayList = new ArrayList<>();
         mRecyclerView = findViewById(R.id.recycler_view);
-        check = (Button)findViewById(R.id.check_btn);
+        check = findViewById(R.id.check_btn);
         mMovieAdapter = new MovieAdapter(this, moviesArrayList);
-
-       //linearLayoutManager
-        GridLayoutManager manager = new GridLayoutManager(MainActivity.this , 2);
-        //manager.setOrientation(LinearLayoutManager.VERTICAL);
+        //linearLayoutManager
+        GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 2);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
-
         mRecyclerView.setAdapter(mMovieAdapter);
         //check Button for internet state.
-        check.setOnClickListener (new View.OnClickListener() {
+        check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMovieAdapter.updateMovies(null);
-                if(isOnline()){
+                if (isOnline()) {
                     loadMovieData();
-                }else{
+                } else {
                     showErrorMessage();
-                    Toast.makeText(MainActivity.this , "Error , Check internet connection" ,Toast.LENGTH_LONG).show();}
-
+                    Toast.makeText(MainActivity.this, "Error , Check internet connection", Toast.LENGTH_LONG).show();
+                }
             }
         });
-
         //add item decoration
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
-
-       loadMovieData();
+        loadMovieData();
     }
+
     //check internet state.
     public boolean isOnline() {
         ConnectivityManager cm =
@@ -97,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
         new AsynTaskMethod().execute(data);
     }
 
-    private void loadTopMovieData(){
-    showData();
-    String data2 = NetworkUtilsTopRated.getResponseFromHttpUrlT();
-    new AsynTaskMethod2().execute(data2);
+    private void loadTopMovieData() {
+        showData();
+        String data2 = NetworkUtilsTopRated.getResponseFromHttpUrlT();
+        new AsynTaskMethod2().execute(data2);
     }
 
     private void showData() {
@@ -111,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
     private void showErrorMessage() {
         mRecyclerView.setVisibility(View.INVISIBLE);
         check.setVisibility(View.VISIBLE);
-     //error toast
-        Toast.makeText(this , "Error , Check internet connection" ,Toast.LENGTH_LONG).show();
+        //error toast
+        Toast.makeText(this, "Error , Check internet connection", Toast.LENGTH_LONG).show();
     }
 
     //AsyncTask to fetch movie Data.
@@ -126,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             pdLoading.setCancelable(false);
             pdLoading.show();
         }
+
         @Override
         protected ArrayList<MovieData> doInBackground(String... params) {
             URL moviesRequestUrl = NetworkUtils.buildUrl();
@@ -147,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //AsyncTask to fetch movie Data.
+    //AsyncTask2 to fetch movie Data.
     public class AsynTaskMethod2 extends AsyncTask<String, Void, ArrayList<MovieData>> {
         ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
 
@@ -158,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
             pdLoading.setCancelable(false);
             pdLoading.show();
         }
+
         @Override
         protected ArrayList<MovieData> doInBackground(String... params) {
             URL moviesRequestUrl = NetworkUtilsTopRated.buildUrlTop();
@@ -195,19 +185,19 @@ public class MainActivity extends AppCompatActivity {
         /* Return true so that the menu is displayed in the Toolbar */
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.popular) {
             //set the Url to popular
             loadMovieData();
             return true;
         }
-        if (id == R.id.top_rated){
+        if (id == R.id.top_rated) {
             //set the Url to top rated
             loadTopMovieData();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
